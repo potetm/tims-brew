@@ -1,0 +1,15 @@
+bash
+bash-completion
+coreutils
+curl
+git
+gnu-sed
+grep
+openssh
+openssl
+pcre
+pkg-config
+readline
+vim
+wget
+xz
