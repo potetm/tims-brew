@@ -1,14 +1,19 @@
+aspell
 bash
 bash-completion
 clojure
 coreutils
 curl
+emacs
 gdbm
 git
 gnu-sed
 grep
 groovy
+leiningen
+libevent
 libyaml
+make
 openssh
 openssl
 pcre
@@ -16,6 +21,7 @@ pkg-config
 readline
 ruby
 scala
+tmux
 vim
 wget
 xz
