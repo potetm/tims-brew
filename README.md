@@ -13,9 +13,9 @@ cd tims-brew
 
 In the event I add or update a config file, simply run
 
-'''
+```
 ./installer.sh
-'''
+```
 
 to link in the new config files in.  Linked files (e.g. `/etc/profile`) will
 update automatically when you update this repository with a `git pull`.
