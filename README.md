@@ -1,6 +1,9 @@
 Hopefully, all you have to do to get this setup is:
-  1. Install `brew`
-  2. Run the following:
+  1. Install [xcode](https://developer.apple.com/xcode/)
+  2. Install [xcode command line tools](https://developer.apple.com/downloads/index.action) (search for xcode on the left)
+  3. `sudo xcodebuild -license`
+  4. Install [`brew`](http://brew.sh/)
+  5. Run the following:
 
 ```
 brew tap homebrew/dupes
