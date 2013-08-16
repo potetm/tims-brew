@@ -15,28 +15,36 @@ pkgutil --pkg-info=com.apple.pkg.DeveloperToolsCLI   > /dev/null 2>&1 || fail "X
 # check for brew
 type brew > /dev/null 2>&1 || fail "brew is not installed!  See README.md."
 
-while getopts ":i" opt; do
-  case "$opt" in
-    i ) declare -r INITIAL_INSTALL="true";;
-    \?) fail "Illegal argument $opt";;
-  esac
-done
-
-shift $(( OPTIND - 1 ))
-
 cd "$(dirname "$0")"
 
 declare -r BASEDIR="$PWD"
-declare -r FILE_FORMULA="$BASEDIR"/fomula
+declare -r FILE_FORMULA="$BASEDIR"/formulae
 declare -r FILE_FORCE_LINK="$BASEDIR"/force-link
+declare -r FILE_TAP="$BASEDIR"/tap
+declare -r FILE_DEFAULT_NAMES="$BASEDIR"/default-names
 declare -r MY_ETC="$BASEDIR"/etc
 declare -r MY_BREW_BASE="$BASEDIR"/brew-base
 declare -r BREW_BASE="$(brew --prefix)"
 
 function installFormula {
-  brew tap homebrew/dupes                   || fail "Unable to add dupes tap."
-  brew install $(< "$FILE_FORMULA")         || fail "Unable to complete installation of formulas"
-  brew link --force $(< "$FILE_FORCE_LINK") || fail "Unable to force linking of force-link formulas"
+  comm -13 <(brew tap) "$FILE_TAP" |
+  while read tap; do
+    brew tap "$tap" || fail "Unable to add tap: $tap"
+  done
+
+  comm -13 <(brew list) "$FILE_FORMULA" |
+  while read formula; do
+    if grep "$formula" "$FILE_DEFAULT_NAMES"; then
+      brew install --default-names "$formula" || fail "Unable to complete installation of formula: $formula"
+    else
+      brew install "$formula" || fail "Unable to complete installation of formula: $formula"
+    fi
+
+    # find any keg-only formulae
+    if brew info "$formula" | grep 'formula is keg-only' > /dev/null 2>&1; then
+      brew link --force "$formula" || fail "Unable to force linking of force-link formula: $formula"
+    fi
+  done
 }
 
 function linkEtc {
@@ -59,6 +67,6 @@ function linkBrewBase {
   done
 }
 
-[[ $INITIAL_INSTALL == true ]] && installFormula
+installFormula
 linkEtc
 linkBrewBase

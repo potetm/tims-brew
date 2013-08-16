@@ -1,3 +1,4 @@
+ack
 aspell
 bash
 bash-completion
@@ -5,9 +6,13 @@ clojure
 coreutils
 curl
 emacs
+findutils
+gawk
 gdbm
 git
 gnu-sed
+gnu-tar
+gradle
 grep
 groovy
 leiningen
