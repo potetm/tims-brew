@@ -15,10 +15,12 @@ gnu-tar
 gradle
 grep
 groovy
+gzip
 leiningen
 libevent
 libyaml
 make
+node
 openssh
 openssl
 pcre
