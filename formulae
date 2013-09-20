@@ -27,10 +27,12 @@ openssh
 openssl
 pcre
 pkg-config
+postgresql
 readline
 ruby
 scala
 tmux
+unzip
 vim
 wget
 xz
